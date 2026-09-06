@@ -1,0 +1,14 @@
+---
+- name: Install HAProxy and keepalived
+  ansible.builtin.apt:
+    name:
+      - haproxy
+      - keepalived
+    state: present
+    update_cache: true
+
+- name: Configure HAProxy
+  ansible.builtin.import_tasks: haproxy.yml
+
+- name: Configure keepalived
+  ansible.builtin.import_tasks: keepalived.yml

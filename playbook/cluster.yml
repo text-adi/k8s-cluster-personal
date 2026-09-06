@@ -1,0 +1,13 @@
+---
+- name: Install Kubernetes
+  tags:
+    - k8s
+  ansible.builtin.import_playbook: kubernetes_sigs.kubespray.cluster
+
+
+- name: Install and configure HAProxy + keepalived
+  tags:
+    - lb
+  hosts: haproxy
+  roles:
+    - haproxy_keepalived

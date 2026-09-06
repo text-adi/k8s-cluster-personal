@@ -1,0 +1,19 @@
+services:
+  ansible:
+    build: .
+    network_mode: host
+    volumes:
+      - source: ./inventory
+        target: /inventory
+        type: bind
+        read_only: true
+      - source: "${HOME}/.ssh/id_ed25519"
+        target: /root/.ssh/id_ed25519
+        read_only: true
+        type: bind
+      - source: "${HOME}/ansible.cfg"
+        target: /ansible-workspace/ansible.cfg
+        read_only: true
+        type: bind
+    tty: true
+    stop_grace_period: 1s

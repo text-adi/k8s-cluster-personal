@@ -1,0 +1,37 @@
+# {{ ansible_managed }}
+vrrp_script chk_haproxy {
+    script "/etc/keepalived/check_haproxy.sh"
+    interval 2
+    weight 2
+    fall 2
+    rise 2
+}
+
+vrrp_instance VI_1 {
+    state {{ 'MASTER' if inventory_hostname == groups['haproxy'][0] else 'BACKUP' }}
+    interface {{ haproxy_keepalived_vip_interface }}
+    virtual_router_id {{ haproxy_keepalived_router_id }}
+    priority {{ 150 - (groups['haproxy'].index(inventory_hostname) * 10) }}
+    advert_int 1
+    nopreempt
+
+    authentication {
+        auth_type PASS
+        auth_pass {{ haproxy_keepalived_auth_pass }}
+    }
+
+    unicast_src_ip {{ hostvars[inventory_hostname].ip | default(hostvars[inventory_hostname].ansible_host) | default(hostvars[inventory_hostname].ansible_default_ipv4.address) }}
+    unicast_peer {
+{% for host in groups['haproxy'] if host != inventory_hostname %}
+        {{ hostvars[host].ip | default(hostvars[host].ansible_host) | default(hostvars[host].ansible_default_ipv4.address) }}
+{% endfor %}
+    }
+
+    virtual_ipaddress {
+        {{ haproxy_keepalived_vip_address }}/{{ haproxy_keepalived_vip_cidr }} dev {{ haproxy_keepalived_vip_interface }}
+    }
+
+    track_script {
+        chk_haproxy
+    }
+}

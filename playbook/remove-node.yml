@@ -1,0 +1,2 @@
+- name: Remove node
+  ansible.builtin.import_playbook: kubernetes_sigs.kubespray.remove_node

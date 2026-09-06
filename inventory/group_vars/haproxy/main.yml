@@ -1,0 +1,5 @@
+---
+
+haproxy_keepalived_vip_address: "10.0.50.100"
+
+haproxy_keepalived_auth_pass: "super-secret-password"

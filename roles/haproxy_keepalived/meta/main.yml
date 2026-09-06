@@ -1,0 +1,8 @@
+---
+galaxy_info:
+  description: HAProxy + keepalived load balancer forwarding traffic to kube_node group
+  min_ansible_version: "2.14"
+  platforms:
+    - name: Ubuntu
+      versions:
+        - all

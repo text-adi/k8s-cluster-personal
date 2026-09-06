@@ -1,0 +1,2 @@
+- name: Recover control plane
+  ansible.builtin.import_playbook: kubernetes_sigs.kubespray.recover_control_plane

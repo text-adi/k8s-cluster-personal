@@ -1,0 +1,23 @@
+---
+haproxy_backend_group: kube_node
+
+haproxy_keepalived_vip_interface: "{{ ansible_default_ipv4.interface }}"
+haproxy_keepalived_vip_cidr: 32
+
+haproxy_keepalived_vip_address: ""
+haproxy_keepalived_auth_pass: ""
+haproxy_keepalived_router_id: 51
+
+haproxy_ports:
+  - name: http
+    frontend_port: 80
+    backend_port: 30080
+    mode: tcp
+  - name: https
+    frontend_port: 443
+    backend_port: 30443
+    mode: tcp
+
+haproxy_stats_enabled: false
+haproxy_stats_port: 8404
+haproxy_stats_uri: /haproxy?stats
