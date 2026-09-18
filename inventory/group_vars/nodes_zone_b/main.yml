@@ -1,0 +1,2 @@
+node_labels:
+  topology.kubernetes.io/zone: ua-central-1b

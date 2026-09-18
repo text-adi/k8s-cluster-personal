@@ -1,2 +1,2 @@
 - name: Update cluster
-  ansible.builtin.import_playbook: kubernetes_sigs.kubespray.update_cluster
+  ansible.builtin.import_playbook: kubernetes_sigs.kubespray.upgrade_cluster

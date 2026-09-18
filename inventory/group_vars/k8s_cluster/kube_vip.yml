@@ -9,7 +9,6 @@ kube_vip_services_enabled: false
 
 kube_proxy_strict_arp: true
 
-kube_version: "1.33.11"
 #kube_network_plugin: calico
 #kube_service_addresses: 10.233.0.0/18
 #kube_pods_subnet: 10.233.64.0/18
