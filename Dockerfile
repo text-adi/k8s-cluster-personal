@@ -20,7 +20,7 @@ RUN --mount=type=cache,target=/var/cache/apt,sharing=locked \
     apt-get update && apt-get install --no-install-recommends -y git ca-certificates build-essential \
     && update-ca-certificates
 
-RUN --mount=from=ghcr.io/astral-sh/uv:latest,source=/uv,target=/bin/uv \
+RUN --mount=from=docker.io/astral/uv:latest,source=/uv,target=/bin/uv \
     --mount=type=cache,target=/opt/uv-cache/python \
     --mount=type=cache,target=/opt/uv-cache/packages \
     --mount=type=bind,source=uv.lock,target=uv.lock \

@@ -1,0 +1,14 @@
+---
+- name: Setup nodes k8s-common (OS, network, firewall, sysctl, kernel modules, etc.)
+  tags:
+    - k8s
+  hosts:
+    - kube_control_plane
+    - kube_node
+  roles:
+    - k8s_common
+
+- name: Scale worker node Kubernetes cluster
+  tags:
+    - k8s
+  ansible.builtin.import_playbook: kubernetes_sigs.kubespray.scale

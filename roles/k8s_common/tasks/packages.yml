@@ -1,0 +1,6 @@
+---
+- name: Install basic packages for k8s-common nodes
+  ansible.builtin.apt:
+    name: "{{ k8s_common_packages }}"
+    state: present
+    update_cache: true

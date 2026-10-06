@@ -1,0 +1,4 @@
+---
+- name: Setup packages
+  ansible.builtin.import_tasks: packages.yml
+

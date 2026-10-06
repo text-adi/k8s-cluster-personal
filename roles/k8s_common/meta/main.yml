@@ -1,0 +1,8 @@
+---
+galaxy_info:
+  description: Setup nodes k8s-common (OS, network, firewall, sysctl, kernel modules, etc.)
+  min_ansible_version: "2.14"
+  platforms:
+    - name: Ubuntu
+      versions:
+        - all
