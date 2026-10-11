@@ -1,4 +1,4 @@
 collections:
 - name: https://github.com/kubernetes-sigs/kubespray
   type: git
-  version: v2.32.0
+  version: 867694464daed0a17868ad3c1b75a3d8a6208f4b
