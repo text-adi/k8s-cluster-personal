@@ -1,3 +1,4 @@
 ---
 k8s_common_packages:
   - iputils-ping
+  - vim

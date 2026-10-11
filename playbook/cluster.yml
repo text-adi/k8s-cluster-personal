@@ -2,6 +2,7 @@
 - name: Setup nodes k8s-common (OS, network, firewall, sysctl, kernel modules, etc.)
   tags:
     - k8s
+    - pre-setup
   hosts:
     - kube_control_plane
     - kube_node

@@ -1,0 +1,16 @@
+containerd_registries_mirrors:
+  - prefix: registry-1.docker.io
+    mirrors:
+      - host: http://10.0.52.78:5000
+        capabilities: ["pull", "resolve"]
+        skip_verify: true
+  - prefix: quay.io
+    mirrors:
+      - host: http://10.0.52.78:5001
+        capabilities: [ "pull", "resolve" ]
+        skip_verify: true
+  - prefix: ghcr.io
+    mirrors:
+      - host: http://10.0.52.78:5002
+        capabilities: [ "pull", "resolve" ]
+        skip_verify: true

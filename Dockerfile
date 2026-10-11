@@ -17,10 +17,11 @@ ENV UV_CACHE_DIR=/opt/uv-cache/packages
 ENV UV_PYTHON_INSTALL_DIR=/opt/python
 
 RUN --mount=type=cache,target=/var/cache/apt,sharing=locked \
+    --mount=type=cache,target=/var/lib/apt/lists,sharing=locked \
     apt-get update && apt-get install --no-install-recommends -y git ca-certificates build-essential \
     && update-ca-certificates
 
-RUN --mount=from=docker.io/astral/uv:latest,source=/uv,target=/bin/uv \
+RUN --mount=from=docker.io/astral/uv:0.12.24,source=/uv,target=/bin/uv \
     --mount=type=cache,target=/opt/uv-cache/python \
     --mount=type=cache,target=/opt/uv-cache/packages \
     --mount=type=bind,source=uv.lock,target=uv.lock \
@@ -38,8 +39,11 @@ ENV PATH="/ansible-workspace/.venv/bin:$PATH"
 
 WORKDIR /ansible-workspace
 
+SHELL ["/bin/bash", "-o", "pipefail", "-c"]
+
 # hadolint ignore=DL3008
 RUN --mount=type=cache,target=/var/cache/apt,sharing=locked \
+    --mount=type=cache,target=/var/lib/apt/lists,sharing=locked \
     apt-get update -q \
     && apt-get install -yq --no-install-recommends \
     vim \
@@ -50,13 +54,13 @@ RUN --mount=type=cache,target=/var/cache/apt,sharing=locked \
     && rm -rf /var/lib/apt/lists/* /var/log/* \
     && update-ca-certificates
 
-COPY --from=builder --chown=$USER:$USER --chmod=500 /opt/python /opt/python
-COPY --from=builder --chown=$USER:$USER --chmod=500 /ansible-workspace/.venv ./.venv
+COPY --from=builder --chmod=500 /opt/python /opt/python
+COPY --from=builder --chmod=500 /ansible-workspace/.venv ./.venv
 
-RUN --mount=type=bind,source=requirements.yml,target=requirements.yml \
-    ansible-galaxy install -r requirements.yml
+RUN --mount=type=cache,target=/root/.ansible/galaxy_cache \
+      --mount=type=bind,source=requirements.yml,target=requirements.yml \
+      ansible-galaxy install -r requirements.yml
 
-SHELL ["/bin/bash", "-o", "pipefail", "-c"]
 
 COPY playbook/* .
 COPY roles roles
